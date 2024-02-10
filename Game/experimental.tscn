@@ -20,7 +20,7 @@ script = ExtResource( 1 )
 navpoly = SubResource( 1 )
 
 [node name="Icon" type="Sprite" parent="."]
-position = Vector2( 339, 272 )
+position = Vector2( 199, 267 )
 texture = ExtResource( 2 )
 
 [node name="Line2D" type="Line2D" parent="."]
@@ -28,3 +28,10 @@ default_color = Color( 0.858824, 0.0588235, 0, 1 )
 
 [node name="NavigationPolygonInstance2" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 4 )
+
+[node name="Icon2" type="Sprite" parent="."]
+modulate = Color( 1, 0.0705882, 0, 1 )
+position = Vector2( 202, 59 )
+texture = ExtResource( 2 )
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Icon2"]

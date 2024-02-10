@@ -12,7 +12,8 @@ func _ready():
 	Navigation2DServer.map_set_edge_connection_margin(map,35) # this one increases range of polygons connecting
 	
 	Navigation2DServer.map_force_update(map) # this one is needed if I dont call a diffrent function like the one above
-	
+	$Icon2/NavigationAgent2D.set_target_location($Icon.position)
+	$Icon2/NavigationAgent2D.set_navigation_map(map)
 #	var region = Navigation2DServer.region_create()
 #	var region2 = Navigation2DServer.region_create()
 #	Navigation2DServer.region_set_map(region,map)
@@ -27,11 +28,15 @@ func _ready():
 
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	#$Icon.position = Navigation2DServer.map_get_closest_point(map,get_local_mouse_position())
-	var points = Navigation2DServer.map_get_path(map,$Icon.position,Navigation2DServer.map_get_closest_point(map,get_local_mouse_position()),true)
-	$Line2D.points = points
+func _physics_process(delta):
+	$Icon2.global_position = $Icon2/NavigationAgent2D.get_next_location() 
 	
-	pass
+
+#
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	#$Icon.position = Navigation2DServer.map_get_closest_point(map,get_local_mouse_position())
+#	var points = Navigation2DServer.map_get_path(map,$Icon.position,Navigation2DServer.map_get_closest_point(map,get_local_mouse_position()),true)
+#	$Line2D.points = points
+#
+#	pass
