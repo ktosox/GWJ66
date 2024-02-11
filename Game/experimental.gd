@@ -22,8 +22,8 @@ func _ready():
 	Navigation2DServer.region_set_navpoly(region2,$NavigationPolygonInstance2.navpoly)
 #	print(Navigation2DServer.region_get_connections_count(region) )
 	Navigation2DServer.map_force_update(map) # this one is needed if I dont call a diffrent function like the one above
-
-
+	
+	#Navigation2DServer.free_rid(map) # this line is for when I'm done with a map
 
 
 func _input(event : InputEvent):
@@ -40,3 +40,4 @@ func _input(event : InputEvent):
 #	$Line2D.points = points
 #
 #	pass
+

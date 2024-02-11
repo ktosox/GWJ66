@@ -14,8 +14,8 @@ func path_to_curve(path : PoolVector2Array):
 
 
 func get_path_to_point(target : Vector2):
-	var start = to_global($WhereToGo.position)
-	print(start, " : ",target)
+	var start = ($RigidBody2D.global_position + $WhereToGo.global_position)/2
+
 	return Navigation2DServer.map_get_path(map,start,target,true)
 	
 
@@ -25,8 +25,14 @@ func move_to_point(global_point : Vector2, map):
 	path_to_curve(get_path_to_point(global_point))
 	$AnimationPlayer.stop()
 	$AnimationPlayer.play("New Anim")
-	print(curve._data)
+
 	pass
+
+func _physics_process(delta):
+
+	if $RigidBody2D.position.distance_to($WhereToGo.position) > 45 :
+		
+		move_to_point(to_global(curve.get_point_position(curve.get_point_count()-1)),map )
 
 func _ready():
 	
