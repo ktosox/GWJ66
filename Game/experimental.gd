@@ -8,29 +8,29 @@ var map
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	map = Navigation2DServer.get_maps()[0]
+	map = Navigation2DServer.map_create()
 	Navigation2DServer.map_set_edge_connection_margin(map,35) # this one increases range of polygons connecting
 	
-	Navigation2DServer.map_force_update(map) # this one is needed if I dont call a diffrent function like the one above
-	$Icon2/NavigationAgent2D.set_target_location($Icon.position)
-	$Icon2/NavigationAgent2D.set_navigation_map(map)
-#	var region = Navigation2DServer.region_create()
-#	var region2 = Navigation2DServer.region_create()
-#	Navigation2DServer.region_set_map(region,map)
-#	Navigation2DServer.region_set_map(region2,map)
-	#Navigation2DServer.region_set_navpoly(region,$NavigationPolygonInstance.navpoly)
-	#Navigation2DServer.region_set_navpoly(region2,$NavigationPolygonInstance2.navpoly)
+	
+
+	
+	var region = Navigation2DServer.region_create()
+	var region2 = Navigation2DServer.region_create()
+	Navigation2DServer.region_set_map(region,map)
+	Navigation2DServer.region_set_map(region2,map)
+	Navigation2DServer.region_set_navpoly(region,$NavigationPolygonInstance.navpoly)
+	Navigation2DServer.region_set_navpoly(region2,$NavigationPolygonInstance2.navpoly)
 #	print(Navigation2DServer.region_get_connections_count(region) )
-	
+	Navigation2DServer.map_force_update(map) # this one is needed if I dont call a diffrent function like the one above
 
 
 
 
-	pass # Replace with function body.
+func _input(event : InputEvent):
+	if event.is_pressed() and event.is_class("InputEventMouseButton"):
 
-func _physics_process(delta):
-	$Icon2.global_position = $Icon2/NavigationAgent2D.get_next_location() 
-	
+
+		$Escapee.move_to_point(get_global_mouse_position(),map)
 
 #
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
