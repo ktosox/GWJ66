@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/item_taker.gd" type="Script" id=1]
+
+[node name="ItemTaker" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1248.0
+margin_bottom = -688.0
+rect_min_size = Vector2( 32, 32 )
+color = Color( 0.277954, 0.773438, 0.738599, 0.196078 )
+script = ExtResource( 1 )
+
+[connection signal="gui_input" from="." to="." method="_on_ItemSlot_gui_input"]
