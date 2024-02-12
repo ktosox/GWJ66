@@ -2,5 +2,6 @@ class_name ItemData
 
 extends Resource
 
+var all_types = []
 
-var color : Color
+export(String,"EXIT") var type 

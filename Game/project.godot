@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "ItemData",
 "language": "GDScript",
 "path": "res://ui/item_data.gd"
+}, {
+"base": "Resource",
+"class": "ThingData",
+"language": "GDScript",
+"path": "res://stuff/escapee/thing_data.gd"
 } ]
 _global_script_class_icons={
-"ItemData": ""
+"ItemData": "",
+"ThingData": ""
 }
 
 [application]
@@ -26,16 +32,26 @@ config/icon="res://icon.png"
 [autoload]
 
 IM="*res://ui/item_manager.tscn"
+GlobalNavigator="*res://global_navigator.tscn"
 
 [display]
 
 window/size/width=1280
 window/size/height=720
 mouse_cursor/tooltip_position_offset=Vector2( 0, 0 )
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[layer_names]
+
+2d_physics/layer_1="DO NOT USE"
+2d_physics/layer_2="Things"
+2d_physics/layer_3="Escapees"
+2d_physics/layer_4="Walls"
 
 [physics]
 
