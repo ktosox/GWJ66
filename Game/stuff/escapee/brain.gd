@@ -2,20 +2,34 @@ extends Node
 
 var stuff_to_do = []
 
-var focus = 20
-
-var go_to_place_ref : FuncRef
-
-var 
 
 
+var go_to_point : FuncRef
+
+var idle_around : FuncRef
+
+var sleeping = false
+
+func _ready():
+	
+	pass
 
 func new_thing(data : ThingData):
-	stuff_to_do
+	# check if data is a duplicate
+	# if not ->
+	stuff_to_do.push_front(data)
 	pass
 
 
-
+func do_something():
+	
+#	if !stuff_to_do.empty():
+#		print("do stuff")
+#	else:
+	idle_around.call_func()
+	$IdleTimer.start()
+	sleeping = true
+	pass
 
 
 # Brain!
@@ -25,15 +39,19 @@ func new_thing(data : ThingData):
 # has a list of stuff to do
 
 func wake_up():
+	if sleeping:
+		sleeping = false
+		do_something()
 	pass
 
 
 func _on_ThingDetector_body_entered(body):
 	assert(body.get("impression"))
+	body.impression.global_position = body.global_position # this is here becouse I got lazy and didnt want to make a generic "Thing" scene with a get_impression method
 	new_thing(body.impression)
 	pass # Replace with function body.
 
 
 func _on_IdleTimer_timeout():
-	
+	wake_up()
 	pass # Replace with function body.
