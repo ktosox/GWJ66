@@ -1,12 +1,12 @@
 extends Path2D
 
-var moving = false
+export var moving = false
 
-var stamina = 20
+export var stamina = 40
 
-var max_stamina = 30
+var max_stamina = 80
 
-var speed = 20
+export var speed = 40
 
 
 
@@ -15,7 +15,7 @@ var speed = 20
 
 func set_curve_from_path(path : PoolVector2Array):
 	curve.clear_points()
-	var SPREAD = 5 # 10 adds slight wobble - 100 is drunk
+	var SPREAD = 10 # 10 adds slight wobble - 100 is drunk
 	for point in path:
 		curve.add_point(point-global_position,Vector2(rand_range(-SPREAD,SPREAD),rand_range(-SPREAD,SPREAD)),Vector2(rand_range(-SPREAD,SPREAD),rand_range(-SPREAD,SPREAD)))
 	
@@ -42,8 +42,9 @@ func start_idle_behaviour():
 			pass
 
 
-func move_to_point(global_point : Vector2):
-	$WhereToGo.offset = 0
+func move_to_point(global_point : Vector2, urgency = 3.0):
+	$Legs.offset = 0
+	speed = stamina * urgency
 	set_curve_from_path(get_path_to_point(Navigation2DServer.map_get_closest_point(GlobalNavigator.current_map,global_point)))
 	moving = true
 
@@ -53,18 +54,20 @@ func move_to_point(global_point : Vector2):
 
 
 func _physics_process(delta):
+	var endurance = 0.03
 	if moving:
-		speed = stamina
-		$WhereToGo.offset += delta * speed
-		stamina -= delta
+		$Legs.offset += delta * speed
+		var stamina_loss = delta * pow(speed,1.2) * endurance
+		speed = speed - speed * (stamina_loss / max_stamina)
+		stamina -= stamina_loss
 		
 	else:
-		stamina = min(max_stamina, stamina + delta * 8)
+		stamina = min(max_stamina, stamina + delta * 10)
 	
-	if $WhereToGo.unit_offset == 1.0:
+	if $Legs.unit_offset == 1.0:
 		moving = false
 	
-	if $RigidBody2D.position.distance_to($WhereToGo.position) > 45 :
+	if $RigidBody2D.position.distance_to($Legs.position) > 45 :
 		
 		move_to_point(to_global(curve.get_point_position(curve.get_point_count()-1)) )
 
