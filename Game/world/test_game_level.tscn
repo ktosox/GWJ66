@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://world/game_level.gd" type="Script" id=1]
-[ext_resource path="res://stuff/escapee/escapee.tscn" type="PackedScene" id=2]
+[ext_resource path="res://stuff/escapee/agent.tscn" type="PackedScene" id=2]
 [ext_resource path="res://stuff/exit.tscn" type="PackedScene" id=3]
 
 [sub_resource type="NavigationPolygon" id=1]

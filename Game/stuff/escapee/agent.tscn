@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://stuff/escapee/simple_agent_cicrcle.png" type="Texture" id=1]
-[ext_resource path="res://stuff/escapee/escapee.gd" type="Script" id=2]
+[ext_resource path="res://stuff/escapee/agent.gd" type="Script" id=2]
 [ext_resource path="res://stuff/escapee/brain.tscn" type="PackedScene" id=3]
 
+[sub_resource type="CircleShape2D" id=8]
+
 [sub_resource type="CircleShape2D" id=4]
-radius = 43.0116
+radius = 22.0
 
 [sub_resource type="CircleShape2D" id=6]
 radius = 454.981
@@ -36,6 +38,9 @@ default_color = Color( 1, 1, 1, 1 )
 begin_cap_mode = 2
 end_cap_mode = 2
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Legs/Mover"]
+shape = SubResource( 8 )
+
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 collision_layer = 8
 collision_mask = 24
@@ -61,6 +66,7 @@ margin_right = 20.0
 margin_bottom = -33.0
 
 [node name="Eyes" type="Area2D" parent="RigidBody2D"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -68,6 +74,7 @@ collision_mask = 2
 polygon = PoolVector2Array( -154, -449, -34, 0, 34, 0, 119, -450 )
 
 [node name="Ears" type="Area2D" parent="RigidBody2D"]
+visible = false
 collision_layer = 0
 collision_mask = 4
 
@@ -75,6 +82,7 @@ collision_mask = 4
 shape = SubResource( 6 )
 
 [node name="ItemGrabber" type="Area2D" parent="RigidBody2D"]
+visible = false
 collision_layer = 0
 collision_mask = 6
 

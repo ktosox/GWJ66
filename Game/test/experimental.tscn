@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://experimental.gd" type="Script" id=1]
+[ext_resource path="res://test/experimental.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://stuff/escapee/escapee.tscn" type="PackedScene" id=3]
+[ext_resource path="res://stuff/escapee/agent.tscn" type="PackedScene" id=3]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 408, 279, 404, 548, 323, 366, 286, 137, 369, 130, 217, 23, 489, 41, 180, 123, 80, 107, 113, 444, 292, 444, 69, 571, 21, 305, 114, 364, 610, 176, 716, 275, 577, 130 )

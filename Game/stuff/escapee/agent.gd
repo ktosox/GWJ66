@@ -66,10 +66,10 @@ func _physics_process(delta):
 	
 	if $Legs.unit_offset == 1.0:
 		moving = false
-	
-	if $RigidBody2D.position.distance_to($Legs.position) > 45 :
-		
-		move_to_point(to_global(curve.get_point_position(curve.get_point_count()-1)) )
+#
+#	if $RigidBody2D.position.distance_to($Legs.position) > 45 :
+#
+#		move_to_point(to_global(curve.get_point_position(curve.get_point_count()-1)) )
 
 func _ready():
 	curve = Curve2D.new()

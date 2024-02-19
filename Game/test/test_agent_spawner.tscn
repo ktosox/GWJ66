@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://test/test_agent_spawner.gd" type="Script" id=1]
+[ext_resource path="res://stuff/exit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://test/poly_auto_navi.tscn" type="PackedScene" id=3]
+
+[node name="TestAgentSpawner" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="PolyAutoNavi" parent="." instance=ExtResource( 3 )]
+polygon = PoolVector2Array( 518, -33, 482, 243, 224, 137, 73, 563, 289, 357, 516, 554, 213, 696, 756, 851, 705, 599, 1137, 560, 785, 306, 1029, 219, 859, 62, 931, -94, 656, -67, 840, 185 )
+
+[node name="Exit" parent="." instance=ExtResource( 2 )]
+position = Vector2( 651, 350 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
