@@ -1,4 +1,4 @@
 extends KinematicBody2D
 
-export var impression : Resource
+export var impression : Resource # supposed to be thing_data.gd
 

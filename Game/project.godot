@@ -49,9 +49,10 @@ common/drop_mouse_on_gui_input_disabled=true
 [layer_names]
 
 2d_physics/layer_1="DO NOT USE"
-2d_physics/layer_2="Things"
-2d_physics/layer_3="Escapees"
-2d_physics/layer_4="Walls"
+2d_physics/layer_2="VisibleThings"
+2d_physics/layer_3="LoudThings"
+2d_physics/layer_4="Escapees"
+2d_physics/layer_5="Walls"
 
 [physics]
 

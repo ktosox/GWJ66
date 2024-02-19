@@ -77,11 +77,16 @@ func _ready():
 	var idle_ref = FuncRef.new()
 	idle_ref.set_instance(self)
 	idle_ref.function = "start_idle_behaviour"
-	$Brain.idle_around = idle_ref
+	$RigidBody2D/Brain.idle_around = idle_ref
 	
 	var go_to_ref = FuncRef.new()
 	go_to_ref.set_instance(self)
 	go_to_ref.function = "move_to_point"
-	$Brain.go_to_point = go_to_ref
-	$Brain.do_something()
+	$RigidBody2D/Brain.go_to_point = go_to_ref
+	$RigidBody2D/Brain.do_something()
 	pass
+
+
+func _on_ItemGrabber_body_entered(body):
+	
+	pass # Replace with function body.

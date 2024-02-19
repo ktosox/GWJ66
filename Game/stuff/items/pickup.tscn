@@ -1,12 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://stuff/items/pickup.gd" type="Script" id=1]
+[ext_resource path="res://stuff/escapee/thing_data.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+type = "ITEM"
+one_shot = true
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
 [node name="Pickup" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 1 )
+impression = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

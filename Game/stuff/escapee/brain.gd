@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var stuff_to_do = []
 
@@ -23,11 +23,18 @@ func new_thing(data : ThingData):
 
 func do_something():
 	
-#	if !stuff_to_do.empty():
-#		print("do stuff")
-#	else:
-	idle_around.call_func()
-	$IdleTimer.start()
+	if !stuff_to_do.empty():
+		var next_tinhg_to_do = stuff_to_do.front() as ThingData
+		match next_tinhg_to_do.type:
+			"EXIT":
+				pass
+			"ITEM":
+				pass
+			
+		
+	else:
+		idle_around.call_func()
+		$IdleTimer.start()
 	sleeping = true
 	pass
 
@@ -45,13 +52,25 @@ func wake_up():
 	pass
 
 
-func _on_ThingDetector_body_entered(body):
+
+
+func _on_IdleTimer_timeout():
+	wake_up()
+	pass # Replace with function body.
+
+
+func _on_Ears_body_entered(body):
 	assert(body.get("impression"))
 	body.impression.global_position = body.global_position # this is here becouse I got lazy and didnt want to make a generic "Thing" scene with a get_impression method
 	new_thing(body.impression)
 	pass # Replace with function body.
 
 
-func _on_IdleTimer_timeout():
-	wake_up()
+
+func _on_Eyes_body_entered(body):
+	assert(body.get("impression"))
+	body.impression.global_position = body.global_position # this is here becouse I got lazy and didnt want to make a generic "Thing" scene with a get_impression method
+	new_thing(body.impression)
 	pass # Replace with function body.
+
+
