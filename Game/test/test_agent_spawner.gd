@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var agent_scene = preload("res://stuff/escapee/agent.tscn")
+var agent_scene = preload("res://stuff/agent/agent.tscn")
 
 
 # Called when the node enters the scene tree for the first time.

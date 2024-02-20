@@ -2,7 +2,7 @@
 
 [ext_resource path="res://stuff/Exit.png" type="Texture" id=1]
 [ext_resource path="res://stuff/exit.gd" type="Script" id=2]
-[ext_resource path="res://stuff/escapee/thing_data.gd" type="Script" id=3]
+[ext_resource path="res://stuff/agent/thing_data.gd" type="Script" id=3]
 
 [sub_resource type="Resource" id=6]
 script = ExtResource( 3 )

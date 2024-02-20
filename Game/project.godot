@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "ThingData",
 "language": "GDScript",
-"path": "res://stuff/escapee/thing_data.gd"
+"path": "res://stuff/agent/thing_data.gd"
 } ]
 _global_script_class_icons={
 "ItemData": "",

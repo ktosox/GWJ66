@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/simple_agent_cicrcle.png-444c42df188ab9dc79e4339a9c4a4450.stex"
+path="res://.import/simple_agent_cicrcle.png-7a4f5a5496e642cc8bbbdcaaec5a6814.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://stuff/escapee/simple_agent_cicrcle.png"
-dest_files=[ "res://.import/simple_agent_cicrcle.png-444c42df188ab9dc79e4339a9c4a4450.stex" ]
+source_file="res://stuff/agent/simple_agent_cicrcle.png"
+dest_files=[ "res://.import/simple_agent_cicrcle.png-7a4f5a5496e642cc8bbbdcaaec5a6814.stex" ]
 
 [params]
 
