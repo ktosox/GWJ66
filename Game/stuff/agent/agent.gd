@@ -63,10 +63,14 @@ func move_to_point(global_point : Vector2, urgency = 3.0):
 func _physics_process(delta):
 	var endurance = 0.03
 	if moving:
+		
 		$Legs.offset += delta * speed
+		if $Legs/Mover.global_position != $Torso.global_position:
+			$Torso/Eyes.look_at($Legs/Mover.global_position)
 		var stamina_loss = delta * pow(speed,1.2) * endurance
 		speed = speed - speed * (stamina_loss / max_stamina)
 		stamina -= stamina_loss
+
 		
 	else:
 		stamina = min(max_stamina, stamina + delta * 10)
@@ -88,14 +92,14 @@ func tumble():
 	pass
 
 func un_tumble():
-	$Torso.mode = RigidBody2D.MODE_KINEMATIC
+	#$Torso.mode = RigidBody2D.MODE_KINEMATIC
 	
 	$Legs.global_position = $Torso.global_position
 	yield(get_tree().create_timer(0.2),"timeout")
 	
 	#$Legs/Mover.global_position = $Torso.global_position
 	$Legs/Joint.set_deferred("node_a",NodePath("../Mover"))
-	$Torso.set_deferred("mode",RigidBody2D.MODE_CHARACTER) 
+	#$Torso.set_deferred("mode",RigidBody2D.MODE_CHARACTER) 
 	pass
 
 func _ready():
@@ -119,3 +123,8 @@ func _on_ItemGrabber_body_entered(body):
 	pass # Replace with function body.
 
 
+
+
+func _on_Torso_tree_exiting():
+	queue_free()
+	pass # Replace with function body.

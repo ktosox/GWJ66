@@ -9,15 +9,6 @@ script = ExtResource( 3 )
 type = "EXIT"
 one_shot = false
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 5.0
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 98.0459
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 28.0
-
 [sub_resource type="Animation" id=7]
 resource_name = "New Anim"
 length = 2.0
@@ -50,6 +41,15 @@ tracks/0/keys = {
 "values": [ 0.0 ]
 }
 
+[sub_resource type="CircleShape2D" id=1]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 117.017
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 28.0
+
 [sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 0 ), 0.0, 3.09003, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
@@ -63,24 +63,6 @@ collision_mask = 0
 script = ExtResource( 2 )
 impression = SubResource( 6 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
-[node name="SuckZone" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-space_override = 3
-gravity_point = true
-gravity = 200.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SuckZone"]
-shape = SubResource( 2 )
-
-[node name="Escape" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Escape"]
-shape = SubResource( 3 )
-
 [node name="Exit" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
@@ -89,6 +71,26 @@ texture = ExtResource( 1 )
 autoplay = "New Anim"
 "anims/New Anim" = SubResource( 7 )
 anims/RESET = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="SuckZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+space_override = 3
+gravity_point = true
+gravity = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuckZone"]
+shape = SubResource( 2 )
+
+[node name="Escape" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Escape"]
+shape = SubResource( 3 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 amount = 20
@@ -110,3 +112,5 @@ scale_amount_curve = SubResource( 4 )
 color_ramp = SubResource( 5 )
 hue_variation = 0.44
 hue_variation_random = 1.0
+
+[connection signal="body_entered" from="Escape" to="." method="_on_Escape_body_entered"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://test/test_agent_spawner.gd" type="Script" id=1]
 [ext_resource path="res://stuff/exit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://test/poly_auto_navi.tscn" type="PackedScene" id=3]
+[ext_resource path="res://stuff/agent/agent.tscn" type="PackedScene" id=4]
 
 [node name="TestAgentSpawner" type="Node2D"]
 script = ExtResource( 1 )
@@ -23,5 +24,8 @@ collision_mask = 8
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PoolVector2Array( 445, 219, 224, 121, 21, 180, 206, 401, 97, 648, 885, 703, 739, 606, 1145, 569, 1219, 323, 1260, 318, 1207, 563, 993, 733, 73, 689, 2, 679, -26, 188, -16, 108, 316, 11, 943, -4, 1056, 93, 1208, 335, 811, 302, 1040, 224, 1005, 120, 905, 52, 835, 171, 328, 62 )
+
+[node name="Agent" parent="." instance=ExtResource( 4 )]
+position = Vector2( 574, 394 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,6 +1,6 @@
 extends Node2D
 
-var stuff_to_do = []
+var stuff_to_do = [] # Array of ThingData
 
 
 
@@ -17,6 +17,7 @@ func _ready():
 func new_thing(data : ThingData):
 	# check if data is a duplicate
 	# if not ->
+	
 	stuff_to_do.push_front(data)
 	pass
 
@@ -24,9 +25,10 @@ func new_thing(data : ThingData):
 func do_something():
 	
 	if !stuff_to_do.empty():
-		var next_tinhg_to_do = stuff_to_do.front() as ThingData
-		match next_tinhg_to_do.type:
+		var next_thing_to_do = stuff_to_do.front() as ThingData
+		match next_thing_to_do.type:
 			"EXIT":
+				go_to_point.call_func(next_thing_to_do.global_position)
 				pass
 			"ITEM":
 				pass
