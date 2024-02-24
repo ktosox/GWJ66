@@ -60,11 +60,13 @@ func do_something():
 		for thing in stuff_to_do.size():
 			if stuff_to_do[thing].importance > next_thing_to_do.importance:
 				next_thing_to_do = stuff_to_do[thing]
-
+		$Looker.stop()
+		$Looker.play("look_forward")
 		match next_thing_to_do.type:
 			"EXIT":
 				$Thinks.text = "Im going to exit!"
 				go_to_point.call_func(next_thing_to_do.global_position,2)
+				look_at(next_thing_to_do.global_position)
 				pass
 			"ITEM":
 				if !is_instance_valid(next_thing_to_do.scene):
@@ -74,6 +76,7 @@ func do_something():
 				$Thinks.text = "Im going to item!"
 				# does item exist?
 				go_to_point.call_func(next_thing_to_do.global_position)
+				look_at(next_thing_to_do.global_position)
 				pass
 			"SOUND":
 				if !is_instance_valid(next_thing_to_do.scene):
@@ -83,10 +86,12 @@ func do_something():
 				$Thinks.text = "Im going to sound!"
 				# does item exist?
 				go_to_point.call_func(next_thing_to_do.global_position)
+				look_at(next_thing_to_do.global_position)
 		
 	else:
 		idle_around.call_func()
-	
+		$Looker.stop()
+		$Looker.play("look_around")
 	sleep()
 	pass
 

@@ -32,12 +32,13 @@ func un_fall():
 
 func start_walking(urgency = 1.0):
 	#assert(!moving)
-	offset = 0
+	
 	speed = stamina * urgency
 	moving = true
 	pass
 
 func stop_walking():
+	offset = 0
 	moving = false
 	pass
 
@@ -56,9 +57,10 @@ func _physics_process(delta):
 	else:
 		stamina = min(max_stamina, stamina + delta * 10)
 	
-	if unit_offset == 1.0:
-		emit_signal("goal_reached")
-		stop_walking()
+#	if unit_offset == 1.0:
+#		emit_signal("goal_reached")
+#		print("goal_reached")
+#		stop_walking()
 		
 
 #	if $Torso.position.distance_to($Legs.position) > 25 :

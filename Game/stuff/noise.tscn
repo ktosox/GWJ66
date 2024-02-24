@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://stuff/noise.gd" type="Script" id=1]
 [ext_resource path="res://stuff/agent/thing_data.gd" type="Script" id=2]
+[ext_resource path="res://stuff/agent/simple_agent_cicrcle.png" type="Texture" id=3]
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 2 )
@@ -14,6 +15,7 @@ radius = 128.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "New Anim"
+length = 0.3
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -21,7 +23,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.9 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -42,3 +44,8 @@ shape = SubResource( 1 )
 
 [node name="AutoDestruct" type="AnimationPlayer" parent="."]
 "anims/New Anim" = SubResource( 2 )
+
+[node name="SimpleAgentCicrcle" type="Sprite" parent="."]
+modulate = Color( 0.317647, 0.8, 0.184314, 0.121569 )
+scale = Vector2( -8, 8 )
+texture = ExtResource( 3 )

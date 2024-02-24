@@ -1,6 +1,77 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://stuff/agent/brain.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 28.0713
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 454.981
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.181818 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Eyes:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "look_around"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Eyes:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( -2, -2, 2, 1 ),
+"update": 0,
+"values": [ 0.0, -150.0, 150.0, 0.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "wake_up"
+} ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "look_forward"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Eyes:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.2, 2, 2.9 ),
+"transitions": PoolRealArray( 2, -2, 0.5, -0.574349 ),
+"update": 0,
+"values": [ 0.0, 10.0, 0.0, -10.0 ]
+}
 
 [node name="Brain" type="Node2D"]
 script = ExtResource( 1 )
@@ -8,3 +79,42 @@ script = ExtResource( 1 )
 [node name="Thinks" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
+
+[node name="ItemGrabber" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemGrabber"]
+shape = SubResource( 7 )
+
+[node name="Ears" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ears"]
+shape = SubResource( 6 )
+
+[node name="Eyes" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Eyes"]
+rotation = 1.5708
+polygon = PoolVector2Array( -124.998, -449, -23, -8.32598e-05, 23, 8.32598e-05, 124.002, -450 )
+
+[node name="Line2D" type="Line2D" parent="Eyes"]
+rotation = 3.14159
+points = PoolVector2Array( -450, 1, 0, 0 )
+width = 250.0
+width_curve = SubResource( 8 )
+default_color = Color( 0.870588, 0.294118, 0.164706, 0.219608 )
+
+[node name="Looker" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 9 )
+anims/look_around = SubResource( 10 )
+anims/look_forward = SubResource( 11 )
+
+[connection signal="body_entered" from="ItemGrabber" to="." method="_on_ItemGrabber_body_entered"]
+[connection signal="body_entered" from="Ears" to="." method="_on_Ears_body_entered"]
+[connection signal="body_entered" from="Eyes" to="." method="_on_Eyes_body_entered"]
