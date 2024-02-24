@@ -72,19 +72,26 @@ func _ready():
 	go_to_ref.set_instance(self)
 	go_to_ref.function = "move_to_point"
 	$Torso/Brain.go_to_point = go_to_ref
+
+	var trip_over_ref = FuncRef.new()
+	trip_over_ref.set_instance(self)
+	trip_over_ref.function = "tumble"
+	$Torso.trip_over = trip_over_ref
+	
 	$Torso/Brain.do_something()
 	pass
 
 
 
 func _physics_process(delta):
-	if $Legs.moving and $Legs/Mover.global_position != $Torso.global_position:
-		$Torso/Eyes.look_at($Legs/Mover.global_position)
+	if $Legs.global_position.distance_to($Torso.global_position) > 1.0 :
+		
+		$Torso/Eyes.look_at($Legs.global_position)
 
 
 
 func _on_ItemGrabber_body_entered(body):
-	
+	$Torso/Brain.wake_up()
 	pass # Replace with function body.
 
 
@@ -94,3 +101,8 @@ func _on_Torso_tree_exiting():
 	queue_free()
 	pass # Replace with function body.
 
+
+
+func _on_Legs_goal_reached():
+	$Torso/Brain.wake_up()
+	pass # Replace with function body.

@@ -18,7 +18,7 @@ func _ready():
 	assert(torso_goes_here != null)
 	
 	$Pelvis.node_b = "../"+torso_goes_here
-	print($Pelvis.node_a,$Pelvis.node_b)
+
 	
 
 func fall():

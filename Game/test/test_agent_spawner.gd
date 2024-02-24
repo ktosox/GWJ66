@@ -16,6 +16,6 @@ func _ready():
 
 func _on_Timer_timeout():
 	var new_agent = agent_scene.instance()
-	new_agent.global_position = $Exit.global_position + Vector2(rand_range(-300,300),rand_range(-200,200))
+	new_agent.global_position = $SpawnPoint.global_position + Vector2(rand_range(-100,100),rand_range(-100,100))
 	add_child(new_agent)
 	pass # Replace with function body.

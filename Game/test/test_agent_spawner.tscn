@@ -3,20 +3,20 @@
 [ext_resource path="res://test/test_agent_spawner.gd" type="Script" id=1]
 [ext_resource path="res://stuff/exit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://test/poly_auto_navi.tscn" type="PackedScene" id=3]
-[ext_resource path="res://stuff/agent/agent.tscn" type="PackedScene" id=4]
+[ext_resource path="res://stuff/items/pickup.tscn" type="PackedScene" id=5]
 
 [node name="TestAgentSpawner" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 4.0
 autostart = true
 
 [node name="PolyAutoNavi" parent="." instance=ExtResource( 3 )]
 polygon = PoolVector2Array( 354, 77, 482, 243, 224, 137, 40, 184, 224, 398, 114, 638, 847, 688, 705, 599, 1137, 560, 1196, 341, 785, 306, 1029, 219, 995, 122, 909, 62, 840, 185 )
 
 [node name="Exit" parent="." instance=ExtResource( 2 )]
-position = Vector2( 651, 350 )
+position = Vector2( 834, 228 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 16
@@ -25,7 +25,10 @@ collision_mask = 8
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PoolVector2Array( 445, 219, 224, 121, 21, 180, 206, 401, 97, 648, 885, 703, 739, 606, 1145, 569, 1219, 323, 1260, 318, 1207, 563, 993, 733, 73, 689, 2, 679, -26, 188, -16, 108, 316, 11, 943, -4, 1056, 93, 1208, 335, 811, 302, 1040, 224, 1005, 120, 905, 52, 835, 171, 328, 62 )
 
-[node name="Agent" parent="." instance=ExtResource( 4 )]
-position = Vector2( 574, 394 )
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2( 398, 487 )
+
+[node name="Pickup" parent="." instance=ExtResource( 5 )]
+position = Vector2( 666, 282 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

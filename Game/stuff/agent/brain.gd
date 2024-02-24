@@ -26,26 +26,63 @@ func _ready():
 	
 	pass
 
-func new_thing(data : ThingData):
-	# check if data is a duplicate
-	# if not ->
+
+func grabbed_thing(thing : ThingData):
+	if thing.type == "ITEM":
+		if stuff_to_do.has(thing):
+			print("removing ",thing," from list")
+			stuff_to_do.erase(thing)
+		thing.scene.queue_free()
+	pass
+
+func noticed_thing(thing : ThingData):
 	
-	stuff_to_do.push_front(data)
+	# check if data is a duplicate
+	if stuff_to_do.has(thing):
+		return
+	if thing.type == "EXIT":
+		print("I noticed a : ", thing.type)
+		var scream = load("res://stuff/noise.tscn").instance()
+		scream.global_position = global_position
+		scream.impression.global_position = thing.global_position
+		scream.source = self
+		get_tree().current_scene.call_deferred("add_child",scream)
+	stuff_to_do.push_front(thing)
+
 	pass
 
 
 func do_something():
 	
 	if !stuff_to_do.empty():
+		# importance evaluation should go here
 		var next_thing_to_do = stuff_to_do.front() as ThingData
+		for thing in stuff_to_do.size():
+			if stuff_to_do[thing].importance > next_thing_to_do.importance:
+				next_thing_to_do = stuff_to_do[thing]
+
 		match next_thing_to_do.type:
 			"EXIT":
-				go_to_point.call_func(next_thing_to_do.global_position,3)
+				$Thinks.text = "Im going to exit!"
+				go_to_point.call_func(next_thing_to_do.global_position,2)
 				pass
 			"ITEM":
+				if !is_instance_valid(next_thing_to_do.scene):
+					stuff_to_do.erase(next_thing_to_do)
+					call_deferred("do_something")
+					return
+				$Thinks.text = "Im going to item!"
+				# does item exist?
 				go_to_point.call_func(next_thing_to_do.global_position)
 				pass
-			
+			"SOUND":
+				if !is_instance_valid(next_thing_to_do.scene):
+					stuff_to_do.erase(next_thing_to_do)
+					call_deferred("do_something")
+					return
+				$Thinks.text = "Im going to sound!"
+				# does item exist?
+				go_to_point.call_func(next_thing_to_do.global_position)
 		
 	else:
 		idle_around.call_func()
@@ -69,16 +106,20 @@ func sleep():
 
 func _on_Ears_body_entered(body):
 	assert(body.get("impression"))
-	body.impression.global_position = body.global_position # this is here becouse I got lazy and didnt want to make a generic "Thing" scene with a get_impression method
-	new_thing(body.impression)
+	if body.source == self: # ignore sound made by this enitiy
+		return
+	noticed_thing(body.impression)
 	pass # Replace with function body.
 
 
 
 func _on_Eyes_body_entered(body):
 	assert(body.get("impression"))
-	body.impression.global_position = body.global_position # this is here becouse I got lazy and didnt want to make a generic "Thing" scene with a get_impression method
-	new_thing(body.impression)
+	noticed_thing(body.impression)
 	pass # Replace with function body.
 
 
+func _on_ItemGrabber_body_entered(body):
+	assert(body.get("impression"))
+	grabbed_thing(body.impression)
+	pass # Replace with function body.

@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://stuff/noise.gd" type="Script" id=1]
+[ext_resource path="res://stuff/agent/thing_data.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 2 )
+type = "SOUND"
+one_shot = true
+importance = 2.0
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 128.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "New Anim"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="Noise" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 1 )
+impression = SubResource( 3 )
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Loud" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AutoDestruct" type="AnimationPlayer" parent="."]
+"anims/New Anim" = SubResource( 2 )

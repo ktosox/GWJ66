@@ -14,13 +14,14 @@ position = Vector2( 0.038683, 0.999252 )
 rotation = 3.1029
 node_a = NodePath("../Mover")
 bias = 0.308
-softness = 2.13
+softness = 9.03
 
 [node name="Mover" type="KinematicBody2D" parent="."]
 collision_layer = 0
 collision_mask = 0
 
 [node name="Line2D" type="Line2D" parent="Mover"]
+visible = false
 modulate = Color( 0.243137, 1, 0, 1 )
 points = PoolVector2Array( -1, 0, 1, 0 )
 width = 30.0
