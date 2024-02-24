@@ -1,12 +1,6 @@
 extends Path2D
 
-export var moving = false
 
-export var stamina = 40
-
-var max_stamina = 80
-
-export var speed = 40
 
 
 
@@ -29,65 +23,28 @@ func get_path_to_point(target : Vector2):
 	return Navigation2DServer.map_get_path(GlobalNavigator.current_map,start,target,true)
 	
 func start_idle_behaviour():
-	
-	match randi()%2:
-		0:
-			if $TumbleTimer.time_left > 0:
-				$TumbleTimer.stop()
-				un_tumble()
-				yield(get_tree().create_timer(0.2),"timeout")
-			$Torso/Label.text = "idle walking"
-			move_to_point($Torso.global_position + Vector2(rand_range(-200,200),rand_range(-200,200) ))
-			pass
-		1:
-			$Torso/Label.text = "tumble"
-			tumble()
-			$Torso.apply_central_impulse(Vector2(rand_range(-1,1),rand_range(-1,1)).normalized()*10)
-			pass
+	move_to_point($Torso.global_position + Vector2(rand_range(-20,20),rand_range(-20,20)),0.5)
+	yield(get_tree().create_timer(1.5),"timeout")
+	$Torso/Brain.wake_up()
+	pass
 
 
-func move_to_point(global_point : Vector2, urgency = 3.0):
-	$Legs.offset = 0
-	
-	speed = stamina * urgency
+func move_to_point(global_point : Vector2, urgency = 1.0):
 	set_curve_from_path(get_path_to_point(Navigation2DServer.map_get_closest_point(GlobalNavigator.current_map,global_point)))
-
-	
-	moving = true
+	$Legs.start_walking(urgency)
 
 	pass
 
 
 
 
-func _physics_process(delta):
-	var endurance = 0.03
-	if moving:
-		
-		$Legs.offset += delta * speed
-		if $Legs/Mover.global_position != $Torso.global_position:
-			$Torso/Eyes.look_at($Legs/Mover.global_position)
-		var stamina_loss = delta * pow(speed,1.2) * endurance
-		speed = speed - speed * (stamina_loss / max_stamina)
-		stamina -= stamina_loss
 
-		
-	else:
-		stamina = min(max_stamina, stamina + delta * 10)
-	
-	if $Legs.unit_offset == 1.0:
-		moving = false
-
-	if $Torso.position.distance_to($Legs.position) > 25 :
-		tumble()
-#		move_to_point(to_global(curve.get_point_position(curve.get_point_count()-1)) )
 
 func tumble():
 	if $TumbleTimer.time_left > 0:
 		return
-	moving = false
-	$Legs/Joint.node_a = NodePath("")
-
+	$Legs.fall()
+	$Torso/Brain.sleep()
 	$TumbleTimer.start()
 	pass
 
@@ -96,9 +53,10 @@ func un_tumble():
 	
 	$Legs.global_position = $Torso.global_position
 	yield(get_tree().create_timer(0.2),"timeout")
-	
+	$Legs.un_fall()
 	#$Legs/Mover.global_position = $Torso.global_position
-	$Legs/Joint.set_deferred("node_a",NodePath("../Mover"))
+	
+	$Torso/Brain.wake_up()
 	#$Torso.set_deferred("mode",RigidBody2D.MODE_CHARACTER) 
 	pass
 
@@ -118,6 +76,13 @@ func _ready():
 	pass
 
 
+
+func _physics_process(delta):
+	if $Legs.moving and $Legs/Mover.global_position != $Torso.global_position:
+		$Torso/Eyes.look_at($Legs/Mover.global_position)
+
+
+
 func _on_ItemGrabber_body_entered(body):
 	
 	pass # Replace with function body.
@@ -128,3 +93,4 @@ func _on_ItemGrabber_body_entered(body):
 func _on_Torso_tree_exiting():
 	queue_free()
 	pass # Replace with function body.
+

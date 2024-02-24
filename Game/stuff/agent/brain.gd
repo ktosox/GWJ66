@@ -1,12 +1,24 @@
 extends Node2D
 
+# Brain!
+# takes inputs from Agent and Torso and Senses
+# decides what to do next
+
+# is a finite state machine (WIP)
+
+# has priorities (?)
+
+# has a list of stuff to do
+
+# should be on Torso so that it's connected to senses, and senses must be on Torso
+
 var stuff_to_do = [] # Array of ThingData
 
 
 
-var go_to_point : FuncRef
+var go_to_point : FuncRef # method for going to places, takes global location and "urgency"
 
-var idle_around : FuncRef
+var idle_around : FuncRef # makes the Agent do stuff, wakesup brain later
 
 var sleeping = false
 
@@ -28,24 +40,20 @@ func do_something():
 		var next_thing_to_do = stuff_to_do.front() as ThingData
 		match next_thing_to_do.type:
 			"EXIT":
-				go_to_point.call_func(next_thing_to_do.global_position)
+				go_to_point.call_func(next_thing_to_do.global_position,3)
 				pass
 			"ITEM":
+				go_to_point.call_func(next_thing_to_do.global_position)
 				pass
 			
 		
 	else:
 		idle_around.call_func()
-		$IdleTimer.start()
-	sleeping = true
+	
+	sleep()
 	pass
 
 
-# Brain!
-# is a finite state machine
-# states for: going to "a point" / idle (keep startin IdleTimer and do random stuff) / sleeping (do notinhg until woken up)
-# has priorities
-# has a list of stuff to do
 
 func wake_up():
 	if sleeping:
@@ -54,11 +62,9 @@ func wake_up():
 	pass
 
 
-
-
-func _on_IdleTimer_timeout():
-	wake_up()
-	pass # Replace with function body.
+func sleep():
+	sleeping = true
+	pass
 
 
 func _on_Ears_body_entered(body):

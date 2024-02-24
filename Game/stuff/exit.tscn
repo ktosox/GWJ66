@@ -113,4 +113,5 @@ color_ramp = SubResource( 5 )
 hue_variation = 0.44
 hue_variation_random = 1.0
 
+[connection signal="body_entered" from="SuckZone" to="." method="_on_SuckZone_body_entered"]
 [connection signal="body_entered" from="Escape" to="." method="_on_Escape_body_entered"]
