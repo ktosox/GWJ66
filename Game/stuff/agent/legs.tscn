@@ -30,3 +30,9 @@ end_cap_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mover"]
 shape = SubResource( 8 )
+
+[node name="MinWalkTime" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="MinWalkTime" to="." method="_on_MinWalkTime_timeout"]

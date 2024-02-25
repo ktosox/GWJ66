@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 2 )
-type = "SOUND"
+type = ""
 one_shot = true
 importance = 2.0
 

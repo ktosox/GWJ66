@@ -15,7 +15,7 @@ autostart = true
 polygon = PoolVector2Array( 354, 77, 482, 243, 224, 137, 40, 184, 224, 398, 114, 638, 847, 688, 705, 599, 1137, 560, 1196, 341, 785, 306, 1029, 219, 995, 122, 909, 62, 840, 185 )
 
 [node name="Exit" parent="." instance=ExtResource( 2 )]
-position = Vector2( 834, 228 )
+position = Vector2( 1627, -260 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 16

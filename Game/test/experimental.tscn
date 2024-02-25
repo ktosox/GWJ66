@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://test/experimental.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -14,18 +14,13 @@ vertices = PoolVector2Array( 671, 476, 548, 512, 454, 415, 499, 309, 538, 326 )
 polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ) ]
 outlines = [ PoolVector2Array( 538, 326, 499, 309, 454, 415, 548, 512, 671, 476 ) ]
 
-[sub_resource type="Curve2D" id=5]
+[sub_resource type="Curve2D" id=7]
 _data = {
 "points": PoolVector2Array(  )
 }
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 32, 32 )
-
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 200, 200 )
-
-[sub_resource type="CircleShape2D" id=8]
 
 [node name="Experimental" type="Node2D"]
 script = ExtResource( 1 )
@@ -37,8 +32,8 @@ navpoly = SubResource( 1 )
 navpoly = SubResource( 4 )
 
 [node name="Escapee" parent="." instance=ExtResource( 3 )]
-position = Vector2( 77, 321 )
-curve = SubResource( 5 )
+position = Vector2( 237, 251 )
+curve = SubResource( 7 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 442, 309 )
@@ -59,24 +54,3 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 shape = SubResource( 6 )
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2( 957, 208 )
-collision_layer = 0
-space_override = 3
-gravity_point = true
-gravity = 300.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 7 )
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2( 787, 36 )
-collision_mask = 0
-mode = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource( 8 )
-
-[node name="Icon" type="Sprite" parent="RigidBody2D"]
-texture = ExtResource( 2 )

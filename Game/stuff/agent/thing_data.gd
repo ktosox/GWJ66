@@ -2,9 +2,9 @@ class_name ThingData
 
 extends Resource
 
-var all_types = ["EXIT", "ITEM", "SOUND"]
+var all_types = ["EXIT", "ITEM", "DANGER"]
 
-export(String,"EXIT","ITEM","SOUND") var type 
+export(String,"EXIT","ITEM","DANGER") var type 
 
 export var one_shot : bool
 

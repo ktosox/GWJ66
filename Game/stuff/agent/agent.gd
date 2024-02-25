@@ -22,19 +22,17 @@ func get_path_to_point(target : Vector2):
 
 	return Navigation2DServer.map_get_path(GlobalNavigator.current_map,start,target,true)
 	
-func start_idle_behaviour():
-	move_to_point($Torso.global_position + Vector2(rand_range(-50,50),rand_range(-50,50)),0.5)
-	pass
-
 
 func move_to_point(global_point : Vector2, urgency = 1.0):
 	set_curve_from_path(get_path_to_point(Navigation2DServer.map_get_closest_point(GlobalNavigator.current_map,global_point)))
 	$Legs.start_walking(urgency)
-	
+	#$Torso/Brain.look_at(global_point)
 	pass
 
 
-
+func _physics_process(delta):
+	if $Legs.moving: #and !$Legs.walking_just_started:
+		$Torso/Brain.look_at(curve.interpolate_baked($Legs.offset+10)+global_position)
 
 
 
@@ -61,11 +59,6 @@ func un_tumble():
 func _ready():
 	curve = Curve2D.new()
 	
-	var idle_ref = FuncRef.new()
-	idle_ref.set_instance(self)
-	idle_ref.function = "start_idle_behaviour"
-	$Torso/Brain.idle_around = idle_ref
-	
 	var go_to_ref = FuncRef.new()
 	go_to_ref.set_instance(self)
 	go_to_ref.function = "move_to_point"
@@ -76,7 +69,6 @@ func _ready():
 	trip_over_ref.function = "tumble"
 	$Torso.trip_over = trip_over_ref
 	
-	$Torso/Brain.do_something()
 	pass
 
 
@@ -93,5 +85,5 @@ func _on_Torso_tree_exiting():
 
 func _on_Legs_goal_reached():
 	
-	$Torso/Brain.wake_up()
+	$Torso/Brain.walking_complete()
 	pass # Replace with function body.

@@ -9,6 +9,8 @@ var max_stamina = 60
 export var speed = 30
 
 
+var walking_just_started = true
+
 export var torso_goes_here : NodePath
 
 signal goal_reached
@@ -32,14 +34,18 @@ func un_fall():
 
 func start_walking(urgency = 1.0):
 	#assert(!moving)
-	
+	offset = 0
+	walking_just_started = true
+	$MinWalkTime.start()
 	speed = stamina * urgency
 	moving = true
+	set_physics_process(true)
 	pass
 
 func stop_walking():
-	offset = 0
+	
 	moving = false
+	set_physics_process(false)
 	pass
 
 
@@ -54,15 +60,19 @@ func _physics_process(delta):
 		stamina -= stamina_loss
 
 		
-	else:
-		stamina = min(max_stamina, stamina + delta * 10)
+
+	stamina = min(max_stamina, stamina + delta * 20)
 	
-#	if unit_offset == 1.0:
-#		emit_signal("goal_reached")
-#		print("goal_reached")
-#		stop_walking()
+	if unit_offset == 1.0 and !walking_just_started:
+		emit_signal("goal_reached")
+		stop_walking()
 		
 
 #	if $Torso.position.distance_to($Legs.position) > 25 :
 #		tumble()
 #		move_to_point(to_global(curve.get_point_position(curve.get_point_count()-1)) )
+
+
+func _on_MinWalkTime_timeout():
+	walking_just_started = false
+	pass # Replace with function body.
