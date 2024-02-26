@@ -14,7 +14,7 @@ position = Vector2( 0.038683, 0.999252 )
 rotation = 3.1029
 node_a = NodePath("../Mover")
 bias = 0.135
-softness = 1.64
+softness = 1.17
 
 [node name="Mover" type="KinematicBody2D" parent="."]
 collision_layer = 0

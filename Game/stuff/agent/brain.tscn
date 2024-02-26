@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://stuff/agent/brain.gd" type="Script" id=1]
 [ext_resource path="res://stuff/agent/state_machie/sleep.gd" type="Script" id=2]
 [ext_resource path="res://stuff/agent/state_machie/state_machine.gd" type="Script" id=3]
 [ext_resource path="res://stuff/agent/state_machie/search.gd" type="Script" id=4]
 [ext_resource path="res://stuff/agent/state_machie/think.gd" type="Script" id=5]
+[ext_resource path="res://stuff/agent/state_machie/escape.gd" type="Script" id=6]
+[ext_resource path="res://stuff/agent/state_machie/grab.gd" type="Script" id=7]
 
 [sub_resource type="CircleShape2D" id=7]
 radius = 28.0713
@@ -78,6 +80,12 @@ script = ExtResource( 5 )
 
 [node name="Search" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
+
+[node name="Escape" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[node name="Grab" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )
 
 [node name="Thinks" type="Label" parent="."]
 margin_right = 40.0

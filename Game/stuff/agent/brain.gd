@@ -18,12 +18,12 @@ var known_things = [] # Array of ThingData
 
 
 
-var go_to_point : FuncRef # method for going to places, takes global location and "urgency"
+var go_to_point_ref : FuncRef # method for going to places, takes global location and "urgency"
 
 
 
 func _ready():
-	$StateMachine/Think.known_things = known_things
+	$StateMachine.known_things = known_things
 	
 	var look_around_ref = FuncRef.new()
 	look_around_ref.function = "look_around"
@@ -34,6 +34,13 @@ func _ready():
 	got_to_random_ref.function = "got_to_random"
 	got_to_random_ref.set_instance(self)
 	$StateMachine/Search.got_to_random_ref = got_to_random_ref
+	
+	
+	var make_choice_ref = FuncRef.new()
+	make_choice_ref.function = "make_a_choice"
+	make_choice_ref.set_instance(self)
+	$StateMachine/Think.make_choice_ref = make_choice_ref
+	
 	pass
 
 func look_around():
@@ -44,10 +51,14 @@ func look_around():
 func got_to_random():
 	$Looker.stop()
 	$Looker.play("look_forward")
-	go_to_point.call_func(global_position + Vector2(rand_range(-150,150),rand_range(-150,150)),0.5)
+	go_to_point_ref.call_func(global_position + Vector2(rand_range(-150,150),rand_range(-150,150)),0.5)
 	pass
 
-
+func move_to(global_position :Vector2, importance : float):
+	$Looker.stop()
+	$Looker.play("look_forward")
+	go_to_point_ref.call_func(global_position, importance)
+	pass
 
 func grabbed_thing(thing : ThingData):
 	if thing.type == "ITEM":
@@ -58,20 +69,9 @@ func grabbed_thing(thing : ThingData):
 	pass
 
 func noticed_thing(thing : ThingData):
-	
-	# check if data is a duplicate
-	if known_things.has(thing):
-		return
-	if thing.type == "EXIT":
-		print("I noticed a : ", thing.type)
-		var scream = load("res://stuff/noise.tscn").instance()
-		scream.global_position = global_position
-		scream.impression.type = "EXIT"
-		scream.impression.global_position = thing.global_position
-		scream.source = self
-		get_tree().current_scene.call_deferred("add_child",scream)
 	known_things.push_front(thing)
-
+	if $StateMachine.state == $StateMachine.get_node("Search"):
+		$StateMachine.transition_to("Think")
 	pass
 
 func forget_thing(thing : ThingData):
@@ -79,6 +79,54 @@ func forget_thing(thing : ThingData):
 		print("cant remove ", thing, " from list")
 	known_things.erase(thing)
 	print("removing ",thing," from list")
+	pass
+
+
+func make_a_choice():
+	
+	if known_things.empty():
+		$StateMachine.transition_to("Search")
+		return
+		
+		
+		# importance evaluation should go here
+	for thing in known_things:
+		if thing.type == "EXIT":
+			$StateMachine.transition_to("Escape")
+			move_to(thing.global_position,3.0)
+			return
+				
+#		match next_thing_to_do.type:
+#			"EXIT":
+#				$Thinks.text = "Im going to exit!"
+#				go_to_point.call_func(next_thing_to_do.global_position,2)
+#
+#			"ITEM":
+#				if !is_instance_valid(next_thing_to_do.scene):
+#					stuff_to_do.erase(next_thing_to_do)
+#					call_deferred("do_something")
+#					return
+#				$Thinks.text = "Im going to item!"
+#				# does item exist?
+#				go_to_point.call_func(next_thing_to_do.global_position)
+#				look_at(next_thing_to_do.global_position)
+#				pass
+#			"SOUND":
+#				if !is_instance_valid(next_thing_to_do.scene):
+#					stuff_to_do.erase(next_thing_to_do)
+#					call_deferred("do_something")
+#					return
+#				$Thinks.text = "Im going to sound!"
+#				# does item exist?
+#				go_to_point.call_func(next_thing_to_do.global_position)
+#				look_at(next_thing_to_do.global_position)
+#
+#	else:
+#		idle_around.call_func()
+#		$Looker.stop()
+#		$Looker.play("look_around")
+
+
 	pass
 
 
@@ -104,14 +152,28 @@ func _on_Ears_body_entered(body):
 	assert(body.get("impression"))
 	if body.source == self: # ignore sound made by this enitiy
 		return
-	noticed_thing(body.impression)
+	var thing = body.impression
+	if known_things.has(thing):
+		return
+	noticed_thing(thing)
 	pass # Replace with function body.
 
 
 
 func _on_Eyes_body_entered(body):
 	assert(body.get("impression"))
-	noticed_thing(body.impression)
+	var thing = body.impression
+	if known_things.has(thing):
+		return
+	noticed_thing(thing)
+	if thing.type == "EXIT":
+		var scream = load("res://stuff/noise.tscn").instance()
+		scream.global_position = global_position
+		scream.impression.type = "EXIT"
+		scream.impression.global_position = body.impression.global_position
+		scream.source = self
+		get_tree().current_scene.call_deferred("add_child",scream)
+	
 	pass # Replace with function body.
 
 

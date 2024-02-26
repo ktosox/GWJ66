@@ -10,7 +10,7 @@ var sleeping = false
 
 
 
-func enter(msg = {}):
+func enter(msg = []):
 	print("now I sleep")
 	if sleep_time <= 0:
 		sleep_time = 1 + randf()

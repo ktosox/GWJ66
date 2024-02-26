@@ -33,6 +33,8 @@ func move_to_point(global_point : Vector2, urgency = 1.0):
 func _physics_process(delta):
 	if $Legs.moving: #and !$Legs.walking_just_started:
 		$Torso/Brain.look_at(curve.interpolate_baked($Legs.offset+10)+global_position)
+		if $Torso.global_position.distance_to($Legs.global_position) > 15 :
+			tumble()
 
 
 
@@ -59,10 +61,10 @@ func un_tumble():
 func _ready():
 	curve = Curve2D.new()
 	
-	var go_to_ref = FuncRef.new()
-	go_to_ref.set_instance(self)
-	go_to_ref.function = "move_to_point"
-	$Torso/Brain.go_to_point = go_to_ref
+	var go_to_point_ref = FuncRef.new()
+	go_to_point_ref.set_instance(self)
+	go_to_point_ref.function = "move_to_point"
+	$Torso/Brain.go_to_point_ref = go_to_point_ref
 
 	var trip_over_ref = FuncRef.new()
 	trip_over_ref.set_instance(self)

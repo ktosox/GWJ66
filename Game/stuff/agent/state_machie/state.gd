@@ -9,7 +9,7 @@ func _ready():
 	set_physics_process(false)
 	yield(owner,"ready")
 
-func enter(msg = {}):
+func enter(msg = []):
 	
 	pass
 

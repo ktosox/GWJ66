@@ -6,6 +6,7 @@ export var initialState : NodePath
 
 onready var state = get_node(initialState) as State
 
+var known_things : Array
 
 func _ready():
 	yield(owner,"ready")

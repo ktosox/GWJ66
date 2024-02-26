@@ -8,7 +8,7 @@ var got_to_random_ref : FuncRef
 
 
 
-func enter(msg = {}):
+func enter(msg = []):
 	print("now I search")
 	look_around_ref.call_func()
 	pass
