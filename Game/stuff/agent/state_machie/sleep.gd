@@ -12,6 +12,8 @@ var sleeping = false
 
 func enter(msg = []):
 	print("now I sleep")
+	if msg.size() > 0:
+		sleep_time = msg[0]
 	if sleep_time <= 0:
 		sleep_time = 1 + randf()
 	sleeping = true

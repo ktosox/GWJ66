@@ -16,7 +16,8 @@ func enter(msg = []):
 
 
 func looking_complete():
-	got_to_random_ref.call_func()
+	
+	got_to_random_ref.call_func() # this should probably be swapped for a call to move_to
 	pass
 
 func going_complete():

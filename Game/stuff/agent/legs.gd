@@ -26,8 +26,12 @@ func _ready():
 func fall():
 	$Pelvis.node_a = NodePath("")
 	stop_walking()
+	
+	
+
 
 func un_fall():
+
 	$Pelvis.set_deferred("node_a",NodePath("../Mover"))
 	pass
 

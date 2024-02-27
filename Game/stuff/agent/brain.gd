@@ -70,7 +70,7 @@ func grabbed_thing(thing : ThingData):
 
 func noticed_thing(thing : ThingData):
 	known_things.push_front(thing)
-	if $StateMachine.state == $StateMachine.get_node("Search"):
+	if $StateMachine.state_check("Search"):
 		$StateMachine.transition_to("Think")
 	pass
 
@@ -92,6 +92,7 @@ func make_a_choice():
 		# importance evaluation should go here
 	for thing in known_things:
 		if thing.type == "EXIT":
+	
 			$StateMachine.transition_to("Escape")
 			move_to(thing.global_position,3.0)
 			return
@@ -143,8 +144,8 @@ func wake_up():
 	pass
 
 
-func sleep():
-	$StateMachine.transition_to("Sleep")
+func sleep(time):
+	$StateMachine.transition_to("Sleep",[time])
 	pass
 
 

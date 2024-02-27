@@ -33,29 +33,33 @@ func move_to_point(global_point : Vector2, urgency = 1.0):
 func _physics_process(delta):
 	if $Legs.moving: #and !$Legs.walking_just_started:
 		$Torso/Brain.look_at(curve.interpolate_baked($Legs.offset+10)+global_position)
-		if $Torso.global_position.distance_to($Legs.global_position) > 15 :
-			tumble()
+	if $Torso.global_position.distance_to($Legs.global_position) > 10 and !$TumbleTimer.time_left > 0:
+		tumble()
 
 
 
 func tumble():
 	if $TumbleTimer.time_left > 0:
 		return
+	print("Ive fallen!")
 	$Legs.fall()
-	$Torso/Brain.sleep()
+	$Torso/Brain.sleep(500)
 	$TumbleTimer.start()
 	pass
 
 func un_tumble():
 	#$Torso.mode = RigidBody2D.MODE_KINEMATIC
-	
+	if $Torso.linear_velocity.length() > 10:
+		$TumbleTimer.start()
+		return
+	$Legs.offset = 0
 	$Legs.global_position = $Torso.global_position
-	yield(get_tree().create_timer(0.2),"timeout")
+	yield(get_tree().create_timer(0.15),"timeout")
 	$Legs.un_fall()
-	#$Legs/Mover.global_position = $Torso.global_position
+
 	
 	$Torso/Brain.wake_up()
-	#$Torso.set_deferred("mode",RigidBody2D.MODE_CHARACTER) 
+	#Torso.set_deferred("mode",RigidBody2D.MODE_CHARACTER) 
 	pass
 
 func _ready():

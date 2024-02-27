@@ -25,7 +25,10 @@ func transition_to(targetState : String, msg = {}): # change state to targetStat
 	state = get_node(targetState)
 	activate_state(msg)
 
-
+func state_check(to_check : String):
+	if get_node(to_check) == state:
+		return true
+	return false
 
 func activate_state(msg = {}):
 	state.enter(msg)

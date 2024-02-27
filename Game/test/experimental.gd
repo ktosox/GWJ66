@@ -27,11 +27,12 @@ func _ready():
 	#Navigation2DServer.free_rid(map) # this line is for when I'm done with a map
 
 
-func _input(event : InputEvent):
-	if event.is_pressed() and event.is_class("InputEventMouseButton"):
-
-
-		$Escapee.move_to_point(get_global_mouse_position())
+#func _input(event : InputEvent):
+	
+#	if event.is_pressed() and event.is_class("InputEventMouseButton"):
+#
+#
+#		$Escapee.move_to_point(get_global_mouse_position())
 
 #
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
