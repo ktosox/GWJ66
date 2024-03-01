@@ -29,13 +29,16 @@ func drop_data(position, data):
 	IM.remove_item_from_box(data)
 	pass
 
-
+func yeet_item_back_to_box():
+	IM.return_item_to_box(data)
+	data = null
+	pass
 
 
 func _on_ItemSlot_gui_input(event : InputEvent):
-	if event.is_pressed() and data != null:
+	if event.is_action_pressed("LMB") and data != null:
 		color = empty_color
-		IM.return_item_to_box(data)
-		data = null
-		
+		yeet_item_back_to_box()
+	if event.is_action_pressed("RMB") and data != null:
+		print("show extra UI")
 	pass # Replace with function body.

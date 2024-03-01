@@ -1,10 +1,29 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/item_stored.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/item_box.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/item_taker.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/UITestingScene.gd" type="Script" id=4]
+[ext_resource path="res://resources/TileSet_Test_smallWall.png" type="Texture" id=5]
+
+[sub_resource type="TileSet" id=1]
+0/name = "TileSet_Test_smallWall.png 0"
+0/texture = ExtResource( 5 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 96, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
 
 [node name="UITestingScene" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="ItemBar" parent="." instance=ExtResource( 2 )]
 margin_left = 1198.0
@@ -70,14 +89,14 @@ margin_top = 108.0
 margin_right = 68.0
 margin_bottom = 140.0
 
-[node name="ItemSlot" parent="." instance=ExtResource( 3 )]
-margin_left = 627.0
-margin_top = 270.0
-margin_right = 659.0
-margin_bottom = 302.0
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 65548, 0, 0, 65549, 0, 0, 131084, 0, 0, 131085, 0, 0, 196620, 0, 0, 196621, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262160, 0, 0, 327692, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 327700, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 393236, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458768, 0, 0, 458770, 0, 0, 458771, 0, 0, 458772, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524308, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0 )
 
-[node name="ItemSlot2" parent="." instance=ExtResource( 3 )]
-margin_left = 814.0
-margin_top = 102.0
-margin_right = 846.0
-margin_bottom = 134.0
+[node name="ItemTaker" parent="." instance=ExtResource( 3 )]
+margin_left = 545.0
+margin_top = 473.0
+margin_right = 577.0
+margin_bottom = 505.0
