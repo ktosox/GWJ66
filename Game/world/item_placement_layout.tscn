@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://world/item_placement_layout.gd" type="Script" id=1]
+[ext_resource path="res://resources/item_slot.png" type="Texture" id=2]
+[ext_resource path="res://ui/item_box.tscn" type="PackedScene" id=3]
+
+[sub_resource type="TileSet" id=1]
+0/name = "item_slot.png 0"
+0/texture = ExtResource( 2 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 0.52549, 0.996078, 0.372549, 1 )
+0/region = Rect2( 0, 0, 96, 96 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[node name="ItemPlacementLayout" type="TileMap"]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 96, 96 )
+format = 1
+script = ExtResource( 1 )
+
+[node name="ItemLayer" type="HBoxContainer" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="ItemsGetDraggedHere" type="Control" parent="ItemLayer"]
+margin_right = 1216.0
+margin_bottom = 720.0
+size_flags_horizontal = 3
+
+[node name="ItemBox" parent="ItemLayer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1220.0
+margin_right = 1280.0
+margin_bottom = 720.0

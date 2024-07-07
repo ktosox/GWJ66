@@ -21,17 +21,22 @@ func can_drop_data(position, data):
 	
 	return to_return
 
-func drop_data(position, data):
+func drop_data(position, data : ItemData):
 	
 	# handle drop of data
 	self.data = data
 	color = data.color
+	if data.type == "ALARM": # hard check until I figure out some item types
+		$HSlider.visible = true
+	else:
+		$HSlider.visible = false
 	IM.remove_item_from_box(data)
 	pass
 
 func yeet_item_back_to_box():
 	IM.return_item_to_box(data)
 	data = null
+	$HSlider.visible = false
 	pass
 
 

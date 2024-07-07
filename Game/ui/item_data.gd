@@ -6,4 +6,4 @@ var all_types = ["ALARM"]
 
 var color : Color
 
-export(String,"ALARM") var type 
+export(String,"ALARM") var type  = "ALARM"

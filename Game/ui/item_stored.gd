@@ -7,18 +7,9 @@ var data : ItemData
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if color == ColorN("white"):
-		test_setup()
+
 	pass # Replace with function body.
 
-
-func test_setup():
-	data = ItemData.new()
-	color.r *= randf()
-	color.g *= randf()
-	color.b *= randf()
-	data.color = color
-	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -38,4 +29,5 @@ func get_drag_data(position):
 
 func load_item_data(data : ItemData):
 	self.data = data
+	color = data.color
 	pass
